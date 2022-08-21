@@ -25,7 +25,7 @@
 
 #### My Current Stack
 
-<img height="48" src="img/python-original.svg" alt="python"><img height="48" src="img/pocoo_flask-icon.svg" alt="Django"><img height="48" src="img/docker-original.svg" alt="Docker"><img height="48" src="img/linux-original.svg" alt="linux"><img height="48" src="img/nginx-original.svg" alt="nginx"><img height="48" src="img/git-original.svg" alt="git"><img height="48" src="img/PyTorch_logo_icon.svg" alt="git">
+<img height="48" src="img/python-original.svg" alt="python"> &emsp;<img height="48" src="img/pocoo_flask-icon.svg" alt="Django"> &emsp;<img height="48" src="img/docker-original.svg" alt="Docker"> &emsp;<img height="48" src="img/linux-original.svg" alt="linux"> &emsp;<img height="48" src="img/nginx-original.svg" alt="nginx"> &emsp;<img height="48" src="img/git-original.svg" alt="git"> &emsp;<img height="48" src="img/PyTorch_logo_icon.svg" alt="git">
 
 #### Development Stuffs:
 
