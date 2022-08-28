@@ -1,16 +1,9 @@
-## Hi 👋, I'm a software engineer working in Chennai, India
+## Hi 👋, I'm a machine learning engineer working in Chennai, India
 
 <p align="left">
   <a href="https://leetcode.com/rohan-winsor/">
     <img src="https://cp-logo.vercel.app/leetcode/rohan-winsor/" alt="Leet code rating" />
   </a>
-  <a href="https://github.com/rohanwinsor?tab=followers">
-    <img alt="GitHub followers" src="https://img.shields.io/github/followers/rohanwinsor?color=green&logo=github">
-  </a>
-  <a href="https://github.com/rohanwinsor/">
-    <img src="https://komarev.com/ghpvc/?username=rohanwinsor" alt="visitors" />
-  </a>
-
 </p>
 
 #### Bio
