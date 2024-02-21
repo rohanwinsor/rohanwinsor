@@ -1,4 +1,4 @@
-## Hi 👋, I'm a machine learning engineer working in Chennai, India
+## Hi 👋, I'm a machine learning engineer working in India but looking to be a rich and unemployed
 
 
 #### Connect With Me
