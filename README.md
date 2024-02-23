@@ -1,4 +1,4 @@
-## Hi 👋, I'm a machine learning engineer working in India but looking to be a rich and unemployed
+## Hi 👋, I'm a machine learning engineer working in India.
 
 
 #### Connect With Me
