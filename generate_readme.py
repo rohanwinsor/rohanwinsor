@@ -100,6 +100,7 @@ def fetch_merged_prs(username: str, token: str) -> List[Dict]:
               url
               description
               isFork
+              stargazerCount
               owner {
                 login
               }
@@ -150,6 +151,7 @@ def fetch_repositories_with_commits(username: str, token: str) -> Dict[str, Dict
               description
               isFork
               isPrivate
+              stargazerCount
               defaultBranchRef {
                 name
               }
@@ -208,7 +210,7 @@ def fetch_repositories_with_commits(username: str, token: str) -> Dict[str, Dict
 
 
 def filter_and_group_contributions(
-    prs: List[Dict], repos_with_commits: Dict[str, Dict]
+    prs: List[Dict], repos_with_commits: Dict[str, Dict], username: str
 ) -> Dict[str, Dict]:
     """Filter and group contributions by repository."""
     repo_data: Dict[str, Dict] = defaultdict(lambda: {
@@ -216,6 +218,8 @@ def filter_and_group_contributions(
         "url": "",
         "description": "",
         "is_fork": False,
+        "owner": "",
+        "stargazer_count": 0,
         "prs": [],
         "has_commits": False,
         "latest_activity": None,
@@ -225,11 +229,21 @@ def filter_and_group_contributions(
     for pr in prs:
         repo = pr["repository"]
         repo_key = f"{repo['owner']['login']}/{repo['name']}"
+        
+        # Skip repos owned by the user
+        if repo['owner']['login'] == username:
+            continue
+        
+        # Skip repos with less than 5000 stars
+        if repo.get("stargazerCount", 0) < 5000:
+            continue
 
         repo_data[repo_key]["name"] = repo["name"]
         repo_data[repo_key]["url"] = repo["url"]
         repo_data[repo_key]["description"] = repo.get("description") or ""
         repo_data[repo_key]["is_fork"] = repo.get("isFork", False)
+        repo_data[repo_key]["owner"] = repo['owner']['login']
+        repo_data[repo_key]["stargazer_count"] = repo.get("stargazerCount", 0)
         repo_data[repo_key]["prs"].append({
             "title": pr["title"],
             "url": pr["url"],
@@ -252,12 +266,22 @@ def filter_and_group_contributions(
     for repo_key, data in repos_with_commits.items():
         repo = data["repository"]
         
+        # Skip repos owned by the user
+        if repo['owner']['login'] == username:
+            continue
+        
+        # Skip repos with less than 5000 stars
+        if repo.get("stargazerCount", 0) < 5000:
+            continue
+        
         if repo_key not in repo_data:
             # New repo with only commits (no merged PRs)
             repo_data[repo_key]["name"] = repo["name"]
             repo_data[repo_key]["url"] = repo["url"]
             repo_data[repo_key]["description"] = repo.get("description") or ""
             repo_data[repo_key]["is_fork"] = repo.get("isFork", False)
+            repo_data[repo_key]["owner"] = repo['owner']['login']
+            repo_data[repo_key]["stargazer_count"] = repo.get("stargazerCount", 0)
             repo_data[repo_key]["has_commits"] = True
             # Use the latest commit date for sorting, or datetime.min if not available
             repo_data[repo_key]["latest_activity"] = data.get("latest_commit_date") or datetime.min
@@ -286,21 +310,17 @@ def filter_and_group_contributions(
     return filtered_repos
 
 
-def generate_readme(repo_data: Dict[str, Dict]) -> str:
+def generate_readme(repo_data: Dict[str, Dict], username: str) -> str:
     """Generate README.md markdown content."""
-    # Sort by latest activity (most recent first)
+    # Sort by star count (most popular first)
     sorted_repos = sorted(
         repo_data.items(),
-        key=lambda x: x[1]["latest_activity"] or datetime.min,
+        key=lambda x: x[1]["stargazer_count"],
         reverse=True,
     )
 
     lines = [
-        "## 🛠️ Open Source Contributions",
-        "",
-        "A collection of my contributions to the open-source community, including merged pull requests and direct commits to default branches.",
-        "",
-        "### 📑 Summary",
+        "## Open Source Contributions",
         ""
     ]
 
@@ -308,51 +328,22 @@ def generate_readme(repo_data: Dict[str, Dict]) -> str:
         lines.append("No contributions found.")
         return "\n".join(lines)
 
-    # One-line summary per repo
+    # Simple list format
     for repo_key, data in sorted_repos:
-        repo_link = f"**[{data['name']}]({data['url']})**"
-        description = data["description"] or "No description"
-        lines.append(f"- {repo_link}: {description}")
-
-    lines.extend([
-        "",
-        "### 🔍 Detailed Contributions",
-        "",
-        "| Repository | Description | Type | Contributions |",
-        "|:-----------|:------------|:----:|:--------------|"
-    ])
-
-    for repo_key, data in sorted_repos:
-        repo_name = f"**[{data['name']}]({data['url']})**"
-        description = data["description"] or "No description"
-        # Truncate long descriptions
-        if len(description) > 100:
-            description = description[:97] + "..."
-
-        # Determine contribution type
-        contribution_types = []
-        if data["prs"]:
-            contribution_types.append("PR")
-        if data["has_commits"]:
-            contribution_types.append("Commit")
-        contribution_type = " / ".join(contribution_types) if contribution_types else "Unknown"
-
-        # Format contributions (max 3 PRs)
-        contributions = []
-        for pr in data["prs"][:MAX_PR_DISPLAY]:
-            pr_title = pr["title"]
-            if len(pr_title) > 60:
-                pr_title = pr_title[:57] + "..."
-            contributions.append(f"[{pr_title}]({pr['url']})")
+        owner = data["owner"]
+        repo_name = data["name"]
+        star_count = data["stargazer_count"]
         
-        if len(data["prs"]) > MAX_PR_DISPLAY:
-            contributions.append(f"*+{len(data['prs']) - MAX_PR_DISPLAY} more merged PRs*")
-
-        contributions_str = "<br>".join(contributions) if contributions else "Direct commits"
-
-        lines.append(
-            f"| {repo_name} | {description} | {contribution_type} | {contributions_str} |"
-        )
+        # Format star count (e.g., 33900 -> 33.9k)
+        if star_count >= 1000:
+            star_display = f"{star_count / 1000:.1f}k"
+        else:
+            star_display = str(star_count)
+        
+        # Build the PR search URL
+        pr_search_url = f"https://github.com/{owner}/{repo_name}/pulls?q=is:pr+author:{username}+is:merged"
+        
+        lines.append(f"- **[{repo_name}]({pr_search_url})** ({star_display} ⭐)")
 
     return "\n".join(lines)
 
@@ -384,11 +375,11 @@ def main():
 
     # Filter and group
     print("Processing contributions...")
-    repo_data = filter_and_group_contributions(prs, repos_with_commits)
+    repo_data = filter_and_group_contributions(prs, repos_with_commits, username)
 
     # Generate README
     print("Generating README.md...")
-    contribution_content = generate_readme(repo_data)
+    contribution_content = generate_readme(repo_data, username)
     
     # Read existing README to preserve content above contributions
     header_content = "## Hi there 👋\n\nWelcome to my profile! Below you can find my open-source contributions."
@@ -400,8 +391,8 @@ def main():
                 header_content = content.split("<!-- START_CONTRIBUTIONS -->")[0].strip()
             else:
                 # If no markers, try to preserve everything before a potential existing header
-                if "## 🛠️ Open Source Contributions" in content:
-                    header_content = content.split("## 🛠️ Open Source Contributions")[0].strip()
+                if "## Open Source Contributions" in content:
+                    header_content = content.split("## Open Source Contributions")[0].strip()
                 else:
                     header_content = content.strip()
 
