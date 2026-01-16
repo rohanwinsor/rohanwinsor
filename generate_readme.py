@@ -234,8 +234,8 @@ def filter_and_group_contributions(
         if repo['owner']['login'] == username:
             continue
         
-        # Skip repos with less than 5000 stars
-        if repo.get("stargazerCount", 0) < 5000:
+        # Skip repos with less than 1000 stars
+        if repo.get("stargazerCount", 0) < 1000:
             continue
 
         repo_data[repo_key]["name"] = repo["name"]
