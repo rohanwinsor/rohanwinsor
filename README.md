@@ -18,9 +18,9 @@ Here are some ideas to get you started:
 <!-- START_CONTRIBUTIONS -->
 ## Open Source Contributions
 
-- **[LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch/pulls?q=is:pr+author:rohanwinsor+is:merged)** (88.2k ⭐)
-- **[cpython](https://github.com/python/cpython/pulls?q=is:pr+author:rohanwinsor+is:merged)** (72.0k ⭐)
-- **[litellm](https://github.com/BerriAI/litellm/pulls?q=is:pr+author:rohanwinsor+is:merged)** (39.2k ⭐)
+- **[LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch/pulls?q=is:pr+author:rohanwinsor+is:merged)** (89.0k ⭐)
+- **[cpython](https://github.com/python/cpython/pulls?q=is:pr+author:rohanwinsor+is:merged)** (72.1k ⭐)
+- **[litellm](https://github.com/BerriAI/litellm/pulls?q=is:pr+author:rohanwinsor+is:merged)** (40.0k ⭐)
 - **[textgrad](https://github.com/zou-group/textgrad/pulls?q=is:pr+author:rohanwinsor+is:merged)** (3.4k ⭐)
 - **[libra](https://github.com/Palashio/libra/pulls?q=is:pr+author:rohanwinsor+is:merged)** (1.9k ⭐)
 <!-- END_CONTRIBUTIONS -->
