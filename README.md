@@ -16,7 +16,7 @@ Here are some ideas to get you started:
 -->
 
 <!-- START_CONTRIBUTIONS -->
-## Open Source Contributions
+## Minor open Source Contributions
 
 - **[LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch/pulls?q=is:pr+author:rohanwinsor+is:merged)** (91.5k ⭐)
 - **[cpython](https://github.com/python/cpython/pulls?q=is:pr+author:rohanwinsor+is:merged)** (72.5k ⭐)
