@@ -18,9 +18,9 @@ Here are some ideas to get you started:
 <!-- START_CONTRIBUTIONS -->
 ## Open Source Contributions
 
-- **[LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch/pulls?q=is:pr+author:rohanwinsor+is:merged)** (92.5k ⭐)
-- **[cpython](https://github.com/python/cpython/pulls?q=is:pr+author:rohanwinsor+is:merged)** (72.6k ⭐)
-- **[litellm](https://github.com/BerriAI/litellm/pulls?q=is:pr+author:rohanwinsor+is:merged)** (46.4k ⭐)
-- **[textgrad](https://github.com/zou-group/textgrad/pulls?q=is:pr+author:rohanwinsor+is:merged)** (3.5k ⭐)
+- **[LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch/pulls?q=is:pr+author:rohanwinsor+is:merged)** (95.0k ⭐)
+- **[cpython](https://github.com/python/cpython/pulls?q=is:pr+author:rohanwinsor+is:merged)** (72.7k ⭐)
+- **[litellm](https://github.com/BerriAI/litellm/pulls?q=is:pr+author:rohanwinsor+is:merged)** (47.3k ⭐)
+- **[textgrad](https://github.com/zou-group/textgrad/pulls?q=is:pr+author:rohanwinsor+is:merged)** (3.6k ⭐)
 - **[libra](https://github.com/Palashio/libra/pulls?q=is:pr+author:rohanwinsor+is:merged)** (1.9k ⭐)
 <!-- END_CONTRIBUTIONS -->
